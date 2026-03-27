@@ -1,5 +1,7 @@
 package project.tree;
 
+import project.util.HashService;
+
 public class BinarySearchTree {
     
     private Node root;
@@ -14,22 +16,21 @@ public class BinarySearchTree {
             this.data = data;
             this.left = null;
             this.right = null;
-            this.height = 1; //altura do node
-
+            this.height = 1;
         }
     }
 
-    public void insert(String data) { //parte publica do método
+    public void insert(String data) {
         root = insertRec(root, data);
     }
 
-    private Node insertRec(Node current, String data) { //parte privada do método
-        
+    private Node insertRec(Node current, String data) {
+
         if (current == null) { //se o current for null, já cria o node
             return new Node(data);
         }
 
-        int compare = data.compareToIgnoreCase(current.data); //faz a comparação: menor(<0) maior(>0) igual(0)
+        int compare = data.compareToIgnoreCase(current.data); //menor(<0) maior(>0) igual(0)
 
         if (compare < 0) {
             current.left = insertRec(current.left, data); //se menor, entra na recursividade agora com o nó filho esquerdo
@@ -37,33 +38,29 @@ public class BinarySearchTree {
             current.right = insertRec(current.right, data); //se maior, entra na recursividade agora com o nó filho direito
         }
 
-        //como não tem comparação com igual, as duplicatas são ignoradas.
-
         updateHeight(current); //atualiza a altura
 
         int balance = getBalance(current);
 
-        //esquerda
         if (balance > 1) { //se a avl estiver desbalanceada pra esquerda
 
-            if (data.compareToIgnoreCase(current.left.data) < 0) { //se entrou à esquerda do filho da esquerda
+            if (data.compareToIgnoreCase(current.left.data) < 0) {
                 return rotateRight(current); //caso simples
             }
 
-            if (data.compareToIgnoreCase(current.left.data) > 0) { //se entrou à direita do filho da esquerda
+            if (data.compareToIgnoreCase(current.left.data) > 0) { 
                 current.left = rotateLeft(current.left); //caso torto
                 return rotateRight(current);
             }
         }
 
-        //direita
         if (balance < -1) { //se a avl estiver desbalanceada pra direita
 
-            if (data.compareToIgnoreCase(current.right.data) > 0) { //se entrou à direita do filho da direita
+            if (data.compareToIgnoreCase(current.right.data) > 0) {
                 return rotateLeft(current); //caso simples
             }
 
-            if (data.compareToIgnoreCase(current.right.data) < 0) { //se entrou à esquerda do filho da direita
+            if (data.compareToIgnoreCase(current.right.data) < 0) {
                 current.right = rotateRight(current.right); //caso torto
                 return rotateLeft(current);
             }
@@ -120,22 +117,33 @@ public class BinarySearchTree {
         return e;
     }
 
-    //Método para calcular o hash da árvore na ordem correta
+    //Método para calcular o hash da árvore
     public String generateHash() {
+        if (root == null) {
+            return "";
+        }
         return generateHashRec(root);
     }
 
     private String generateHashRec(Node current) {
-        if (current == null) {
-            return "";
+        if (current.left == null && current.right == null) {
+            return HashService.generateHash(current.data);
         }
 
-        String leftHash = generateHashRec(current.left);
-        String rightHash = generateHashRec(current.right);
+        String leftHash = "";
+        String rightHash = "";
 
-        String nodeHash = project.util.HashService.generateHash(current.data);
-        String combined = leftHash + rightHash + nodeHash;
+        if (current.left != null) {
+            leftHash = generateHashRec(current.left);
+        }
 
-        return project.util.HashService.generateHash(combined);
+        if (current.right != null) {
+            rightHash = generateHashRec(current.right);
+        }
+
+        String currentHash = HashService.generateHash(current.data);
+        String combinedHash = leftHash + rightHash + currentHash;
+
+        return HashService.generateHash(combinedHash);
     }
 }

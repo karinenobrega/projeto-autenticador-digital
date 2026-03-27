@@ -15,7 +15,7 @@ public class FileService {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
 
-            while ((line = br.readLine()) != null) { //lê linha por linha e:
+            while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
                     lines.add(line);
                 }
@@ -24,7 +24,7 @@ public class FileService {
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo.");
         }
-
+        
         return lines;
     }
 }

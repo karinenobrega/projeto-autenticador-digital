@@ -1,9 +1,9 @@
 package project.list;
 
 public class Node{
-    private String data; //palavra do texto
-    private Node next; //ponteiro para frente
-    private Node prev; //ponteiro para tras
+    private String data;
+    private Node next;
+    private Node prev;
 
     //metodo construtor
     public Node(String data) {

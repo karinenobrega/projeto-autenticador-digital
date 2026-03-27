@@ -8,7 +8,7 @@ public class HashService {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
 
-            byte[] hashBytes = md.digest(text.getBytes());
+            byte[] hashBytes = md.digest(text.getBytes("UTF-8"));
 
             StringBuilder sb = new StringBuilder();
 

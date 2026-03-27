@@ -1,40 +1,36 @@
 package project.stack;
 
-public class MyStack<T> { //tipo generico, guarda qq tipo
+public class MyStack<T> {
     
-    private Node<T> top; //declara o topo da linha
+    private Node<T> top;
 
-    //nó interno da pilha
     private static class Node<T> {
-        T data; //dado de qq tipo
-        Node<T> next; //declara o next
+        T data;
+        Node<T> next;
 
-        //construtor
         Node(T data) {
-            this.data = data; //seta o data
-            this.next = null; //seta o next como null
+            this.data = data;
+            this.next = null;
         }
     }
 
-    //empilhar
     public void push(T data) {
-        Node<T> newNode = new Node<>(data); //cria um novo nó
-        newNode.next = top; //o antigo top é agora o next do novo
-        top = newNode; //o novo node agora é o top
+        Node<T> newNode = new Node<>(data);
+        newNode.next = top;
+        top = newNode;
     }
 
-    //desempilhar
     public T pop() {
-        if (top == null) { //se a pilha estiver vazia
+        if (top == null) {
             return null;
         }
         
-        T value = top.data; //guarda o valor do topo
-        top = top.next; //remove o top
+        T value = top.data;
+        top = top.next;
         return value;
     }
 
     public boolean isEmpty() {
-        return top == null; //verdadeiro se estiver vazio
+        return top == null;
     }
 }

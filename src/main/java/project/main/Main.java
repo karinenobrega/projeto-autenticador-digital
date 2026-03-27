@@ -11,27 +11,19 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        
-        String fileName = "text.txt";
 
-        List<String> lines = FileService.readFile(fileName);
-
+        List<String> lines = FileService.readFile("testeee.txt");
         MyStack<BinarySearchTree> stack = new MyStack<>();
 
         for (String line : lines) {
 
-            BinarySearchTree tree = new BinarySearchTree();
-            
-            //cria uma lista dupla para a linha
-            DoublyLinkedList list = new DoublyLinkedList();
-
-            //método: limpa o texto (pontuação, virgula e maiusculo)
-            String cleanLine = TextProcessor.cleanText(line);
+            BinarySearchTree tree = new BinarySearchTree(); //cria a bst
+            DoublyLinkedList list = new DoublyLinkedList(); //cria a lista dupla
 
             //método: usa os espaços em branco como separação
-            String[] words = TextProcessor.splitWords(cleanLine);
+            String[] words = TextProcessor.splitWords(line);
 
-            //insere cada palavra em words dentro da lista criada
+            //insere cada palavra na lista dupla
             for (String word : words) {
                 if (!word.isEmpty()) {
                     list.insertToBack(word);
@@ -39,9 +31,8 @@ public class Main {
             }
 
             Node current = list.getTail(); //percorre ao contrário
-            
-            while (current != null) { //enquanto o prev nao for null (até o primeiro da lista)
-                tree.insert(current.getData());
+            while (current != null) { //(até o primeiro da lista)
+                tree.insert(current.getData()); //insere a palavra na árvore
                 current = current.getPrev(); //segue para o nó anterior
             }
 
@@ -50,8 +41,7 @@ public class Main {
 
         while (!stack.isEmpty()) { //execução do hash linha por linha
             BinarySearchTree poppedTree = stack.pop();
-            String hash = poppedTree.generateHash();
-            System.out.println(hash);
+            System.out.println(poppedTree.generateHash());
         }
     }
 }
