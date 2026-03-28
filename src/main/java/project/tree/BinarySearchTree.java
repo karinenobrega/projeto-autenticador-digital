@@ -118,14 +118,14 @@ public class BinarySearchTree {
     }
 
     //Método para calcular o hash da árvore
-    public String generateHash() {
+    public String calculateHash() {
         if (root == null) {
             return "";
         }
-        return generateHashRec(root);
+        return calculateHashRec(root);
     }
 
-    private String generateHashRec(Node current) {
+    private String calculateHashRec(Node current) {
         if (current.left == null && current.right == null) {
             return HashService.generateHash(current.data);
         }
@@ -134,11 +134,11 @@ public class BinarySearchTree {
         String rightHash = "";
 
         if (current.left != null) {
-            leftHash = generateHashRec(current.left);
+            leftHash = calculateHashRec(current.left);
         }
 
         if (current.right != null) {
-            rightHash = generateHashRec(current.right);
+            rightHash = calculateHashRec(current.right);
         }
 
         String currentHash = HashService.generateHash(current.data);

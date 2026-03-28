@@ -41,7 +41,7 @@ public class Main {
 
         while (!stack.isEmpty()) { //execução do hash linha por linha
             BinarySearchTree poppedTree = stack.pop();
-            System.out.println(poppedTree.generateHash());
+            System.out.println(poppedTree.calculateHash());
         }
     }
 }
