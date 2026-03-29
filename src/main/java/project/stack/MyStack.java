@@ -2,7 +2,7 @@ package project.stack;
 
 public class MyStack<T> {
     
-    private Node<T> top;
+    private Node<T> top; 
 
     private static class Node<T> {
         T data;

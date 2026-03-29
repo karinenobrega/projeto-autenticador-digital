@@ -12,7 +12,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        List<String> lines = FileService.readFile("testeee.txt");
+        List<String> lines = FileService.readFile("text.txt");
         MyStack<BinarySearchTree> stack = new MyStack<>();
 
         for (String line : lines) {
